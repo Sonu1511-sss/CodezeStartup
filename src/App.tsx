@@ -3,6 +3,7 @@ import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from './lib/gsap'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import { About, Services, Work, Process, Why } from './components/sections'
+import Reviews from './components/Reviews'
 import Team from './components/Team'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <div ref={root}>
       <Navbar />
-      <main><Hero /><About /><Services /><Work /><Process /><Why /><Team /><Contact /></main>
+      <main><Hero /><About /><Services /><Work /><Process /><Why /><Reviews /><Team /><Contact /></main>
       <Footer />
     </div>
   )

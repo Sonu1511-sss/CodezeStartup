@@ -1,165 +1,147 @@
-import { ShieldCheck, Zap, Cpu, Layers, MapPin, ArrowRight } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { ArrowRight, Play } from 'lucide-react'
 import { aboutContent } from '../data/about'
 
-/** Splits a heading into words so GSAP can animate them */
-function Split({ children }: { children: string }) {
-  return (
-    <h2 className="split">
-      {children.split(' ').map((w, i) => (
-        <span
-          key={i}
-          style={{
-            display: 'inline-block',
-            overflow: 'hidden',
-            verticalAlign: 'top',
-            marginRight: '.25em',
-          }}
-        >
-          <span className="w" style={{ display: 'inline-block' }}>
-            {w}
-          </span>
-        </span>
-      ))}
-    </h2>
-  )
-}
-
-const principleIcons = {
-  ShieldCheck,
-  Zap,
-  Cpu,
-  Layers,
-}
-
 export default function About() {
-  const { header, story, stats, principles, commitment } = aboutContent
+  const { label, heading, description, stats, ctaText, ctaHref, video } = aboutContent
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [showConfigHint, setShowConfigHint] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const handlePlayClick = () => {
+    if (video.src) {
+      setIsPlaying(true)
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {
+            // Browser autoplay policy catch
+          })
+        }
+      }, 50)
+    } else {
+      setShowConfigHint(true)
+      setTimeout(() => setShowConfigHint(false), 4000)
+    }
+  }
 
   return (
     <section id="about" className="about-sec">
       <div className="wrap">
-        {/* 1. Section Header */}
-        <div className="about-header">
-          <p className="lab">{header.eyebrow}</p>
-          <Split>{header.heading}</Split>
-          <p className="lead rv about-lead">{header.supporting}</p>
-        </div>
-
-        {/* 2. Our Story & Clean Visual Brand Card */}
-        <div className="about-story-row">
-          <div className="about-story-copy rv">
-            {story.paragraphs.map((p, idx) => (
-              <p key={idx} className="about-story-p">
-                {p}
-              </p>
-            ))}
-          </div>
-
-          <aside className="about-brand-card rv" aria-label="About CODEZA Overview">
-            <div className="about-brand-card-glow" aria-hidden="true" />
-            
-            {/* Header: Logo, Brand & Status */}
-            <div className="about-brand-top">
-              <div className="about-brand-identity">
-                <div className="about-logo-wrapper">
-                  <svg viewBox="0 0 32 32" className="about-logo-svg" aria-hidden="true">
-                    <path
-                      d="M16 2 29 9.5v13L16 30 3 22.5v-13z"
-                      fill="none"
-                      stroke="#8B5CF6"
-                      strokeWidth="2.2"
-                    />
-                    <path
-                      d="M20 12.5a5.5 5.5 0 1 0 0 7"
-                      fill="none"
-                      stroke="#22D3EE"
-                      strokeWidth="2.6"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="about-brand-name">{story.card.brand}</h3>
-                  <span className="about-brand-sub">{story.card.tagline}</span>
-                </div>
-              </div>
-
-              <div className="about-status-pill" title="Current Operational Status">
-                <span className="status-pulse-dot" aria-hidden="true" />
-                <span>{story.card.status}</span>
-              </div>
+        <div className="about-bento-grid rv">
+          {/* 1. Left Section — About CODEZA */}
+          <div className="about-left-col">
+            <div className="about-eyebrow-pill">
+              <span className="about-pill-dot" aria-hidden="true" />
+              <span>{label}</span>
             </div>
 
-            {/* Location row */}
-            <div className="about-location-row">
-              <MapPin size={15} className="location-icon" aria-hidden="true" />
-              <span>Location: {story.card.location}</span>
-            </div>
+            <h2 className="about-main-heading">{heading}</h2>
 
-            {/* Metric Blocks (2026 Founded, 20+ Delivered, 3 Core Team) */}
-            <div className="about-metrics-grid">
-              {story.card.metrics.map((metric, i) => (
-                <div key={i} className="about-metric-block">
-                  <div className="metric-number">{metric.value}</div>
-                  <div className="metric-name">{metric.label}</div>
+            <p className="about-desc">{description}</p>
+
+            {/* Essential Statistics: 20+ Projects, 15+ Clients, 2026 Founded */}
+            <div className="about-stats-container">
+              {stats.map((stat, idx) => (
+                <div key={idx} className="about-stat-box">
+                  <span className="about-stat-number">{stat.value}</span>
+                  <span className="about-stat-label">{stat.label}</span>
                 </div>
               ))}
             </div>
-          </aside>
-        </div>
 
-        {/* 3. Company Statistics */}
-        <div className="about-stats-container">
-          <div className="about-stats-grid">
-            {stats.map((s, i) => (
-              <div key={i} className="about-stat-card rv">
-                <div className="stat-card-glow" aria-hidden="true" />
-                <span className="stat-val">{s.value}</span>
-                <span className="stat-lbl">{s.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 4. What Drives Us */}
-        <div className="about-principles-block">
-          <div className="about-principles-head rv">
-            <h3 className="about-principles-title">{principles.heading}</h3>
-            <p className="about-principles-sub">{principles.description}</p>
-          </div>
-
-          <div className="about-principles-grid">
-            {principles.items.map((item) => {
-              const Icon = principleIcons[item.iconName]
-              return (
-                <article key={item.title} className="about-principle-card rv">
-                  <div className="principle-card-sheen" aria-hidden="true" />
-                  <div className="principle-icon-badge">
-                    <Icon size={22} aria-hidden="true" />
-                  </div>
-                  <h4 className="principle-title">{item.title}</h4>
-                  <p className="principle-desc">{item.description}</p>
-                </article>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* 5. Our Commitment (Built for Your Next Milestone) */}
-        <div className="about-commitment-card rv">
-          <div className="commitment-glow" aria-hidden="true" />
-          <div className="commitment-content">
-            <div className="commitment-text-side">
-              <h3 className="commitment-title">{commitment.title}</h3>
-              <p className="commitment-desc">{commitment.text}</p>
+            {/* CTA Button: Let's Talk → */}
+            <div className="about-cta-wrapper">
+              <a href={ctaHref} className="about-cta-btn">
+                <span>{ctaText}</span>
+                <ArrowRight size={16} className="about-cta-arrow" aria-hidden="true" />
+              </a>
             </div>
-            <div className="commitment-actions">
-              <a href={commitment.ctaPrimary.href} className="btn p commitment-btn-primary">
-                <span>{commitment.ctaPrimary.label}</span>
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
-              <a href={commitment.ctaSecondary.href} className="btn commitment-btn-secondary">
-                {commitment.ctaSecondary.label}
-              </a>
+          </div>
+
+          {/* 2. Right Section — Video Showcase */}
+          <div className="about-right-col">
+            <div className="about-video-card">
+              <div className="about-video-container">
+                {isPlaying && video.src ? (
+                  <video
+                    ref={videoRef}
+                    src={video.src}
+                    poster={video.poster}
+                    controls
+                    autoPlay
+                    playsInline
+                    className="about-native-video"
+                    onEnded={() => setIsPlaying(false)}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <div
+                    className="about-video-poster"
+                    onClick={handlePlayClick}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Play company introduction video: Meet CODEZA"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        handlePlayClick()
+                      }
+                    }}
+                  >
+                    {/* Background Ambient Glow & Grid */}
+                    <div className="about-video-glow" aria-hidden="true" />
+
+                    {/* Logo & Brand Emblem */}
+                    <div className="about-video-brand-wrap" aria-hidden="true">
+                      <div className="about-video-emblem">
+                        <svg viewBox="0 0 32 32" className="about-video-svg" aria-hidden="true">
+                          <path
+                            d="M16 2 29 9.5v13L16 30 3 22.5v-13z"
+                            fill="none"
+                            stroke="#7C3AED"
+                            strokeWidth="2.2"
+                          />
+                          <path
+                            d="M20 12.5a5.5 5.5 0 1 0 0 7"
+                            fill="none"
+                            stroke="#06B6D4"
+                            strokeWidth="2.6"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
+                      <span className="about-video-wordmark">CODEZA</span>
+                    </div>
+
+                    {/* Centered Play Button */}
+                    <button
+                      type="button"
+                      className="about-play-button"
+                      aria-label="Play video"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handlePlayClick()
+                      }}
+                    >
+                      <Play size={24} fill="currentColor" className="about-play-icon" aria-hidden="true" />
+                    </button>
+
+                    {/* Notification hint if video source is not yet configured */}
+                    {showConfigHint && (
+                      <div className="about-video-hint" role="status" aria-live="polite">
+                        <span>Video source configurable in src/data/about.ts</span>
+                      </div>
+                    )}
+
+                    {/* Video Caption at Bottom */}
+                    <div className="about-video-caption">
+                      <span className="caption-dot" aria-hidden="true" />
+                      <span>{video.caption}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
