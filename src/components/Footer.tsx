@@ -117,11 +117,11 @@ export default function Footer() {
         <div ref={trackRef} className="footer-huge-outline-track" aria-hidden="true">
           <div className="footer-text-spotlight-container">
             {/* Base Outlined Text */}
-            <span className="footer-huge-outline-text">CODEZE</span>
+            <span className="footer-huge-outline-text">VYNTRA</span>
 
             {/* Dynamic Spotlight Fill: Colors light up wherever the cursor moves */}
             <span className="footer-huge-spotlight-fill" aria-hidden="true">
-              CODEZE
+              VYNTRA
             </span>
           </div>
         </div>
@@ -132,16 +132,16 @@ export default function Footer() {
         <div className="footer-main-grid">
           {/* Column 1: Brand Info & Social Media Icons */}
           <div className="footer-brand-col footer-reveal">
-            <a className="footer-logo" href="#home" aria-label="Codeze Startup home">
+            <a className="footer-logo" href="#home" aria-label="VYNTRA Technologies home">
               <svg viewBox="0 0 32 32" aria-hidden="true" className="footer-logo-svg">
                 <path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="none" stroke="#8B5CF6" strokeWidth="2.2" />
-                <path d="M20 12.5a5.5 5.5 0 1 0 0 7" fill="none" stroke="#22D3EE" strokeWidth="2.4" strokeLinecap="round" />
+                <path d="M12 12l4 9 4-9" fill="none" stroke="#22D3EE" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span>Codeze Startup</span>
+              <span>VYNTRA Technologies</span>
             </a>
 
             <p className="footer-brand-desc">
-              Building custom software, AI-powered systems, and scalable SaaS platforms designed around modern business ambition.
+              Building custom software, AI-powered systems, cloud infrastructure, and scalable SaaS platforms designed around modern business ambition. Build. Deploy. Scale.
             </p>
 
             {/* Social Media Icons (Like Sheryians Footer) */}
@@ -200,7 +200,9 @@ export default function Footer() {
             <ul className="footer-links-list">
               <li><a href="#about" className="footer-link">About Us</a></li>
               <li><a href="#services" className="footer-link">What We Do</a></li>
+              <li><a href="#vision" className="footer-link">Technology Vision</a></li>
               <li><a href="#work" className="footer-link">Selected Work</a></li>
+              <li><a href="#products" className="footer-link">Future Products</a></li>
               <li><a href="#process" className="footer-link">How We Work</a></li>
               <li><a href="#gallery" className="footer-link">Moments &amp; Gallery</a></li>
               <li><a href="#team" className="footer-link">Our Developers</a></li>
@@ -252,13 +254,13 @@ export default function Footer() {
               </div>
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Direct Email:</span>
-                <a href="mailto:codezastartup@gmail.com" className="footer-contact-value footer-link-highlight">
-                  codezastartup@gmail.com
+                <a href="mailto:vyntratechnologies@gmail.com" className="footer-contact-value footer-link-highlight">
+                  vyntratechnologies@gmail.com
                 </a>
               </div>
               <div className="footer-contact-item">
                 <span className="footer-contact-label">Location:</span>
-                <span className="footer-contact-value">India · Indore Madhay Pradesh</span>
+                <span className="footer-contact-value">India · Indore Madhya Pradesh</span>
               </div>
             </div>
           </div>
@@ -267,7 +269,7 @@ export default function Footer() {
         {/* 3. Bottom Copyright & Credits Bar */}
         <div className="footer-bottom-bar footer-reveal">
           <p className="footer-copyright">
-            © {new Date().getFullYear()} Codeze Startup. All rights reserved.
+            © {new Date().getFullYear()} VYNTRA Technologies. All rights reserved.
           </p>
           <div className="footer-bottom-tag">
             <Sparkles size={13} className="footer-tag-sparkle" />

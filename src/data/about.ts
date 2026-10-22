@@ -6,7 +6,7 @@ export interface AboutStat {
 export interface AboutVideoConfig {
   /**
    * Path or URL to the company introduction video (e.g., '/videos/intro.mp4').
-   * If left empty, a clean dark placeholder with CODEZA branding is displayed.
+   * If left empty, a clean dark placeholder with VYNTRA branding is displayed.
    */
   src: string
   /**
@@ -20,10 +20,10 @@ export interface AboutVideoConfig {
 }
 
 export const aboutContent = {
-  label: 'ABOUT CODEZA',
+  label: 'ABOUT VYNTRA',
   heading: 'We Build Digital Products That Matter.',
   description:
-    'CODEZA helps startups build modern web applications, scalable SaaS platforms, and AI-powered solutions through thoughtful design and reliable engineering.',
+    'VYNTRA Technologies helps startups and enterprises build modern web applications, scalable cloud solutions, and AI-powered software through thoughtful design and reliable engineering.',
   stats: [
     { value: '20+', label: 'Projects Delivered' },
     { value: '15+', label: 'Startup Clients' },
@@ -34,6 +34,6 @@ export const aboutContent = {
   video: {
     src: '', // Configurable company introduction video source
     poster: '',
-    caption: 'Meet CODEZA',
+    caption: 'Meet VYNTRA',
   } as AboutVideoConfig,
 }

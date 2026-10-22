@@ -14,9 +14,9 @@ export const galleryItems: GalleryItem[] = [
     category: 'story',
     type: 'video',
     image: studentStoryImg,
-    tag: 'ANOTHER PLACEMENT FROM CODEZE',
+    tag: 'ANOTHER PLACEMENT FROM VYNTRA',
     caption: 'Candid video interview sharing how hands-on coding transformed theoretical knowledge into production-ready software engineering.',
-    alt: 'Placement success story of a young engineer at Codeze',
+    alt: 'Placement success story of a young engineer at VYNTRA',
   },
   {
     id: 'sprint-celebration',
@@ -27,7 +27,7 @@ export const galleryItems: GalleryItem[] = [
     image: teamCelebrationImg,
     tag: 'MILESTONE CELEBRATIONS',
     caption: 'Festive treats and shared laughter following a successful multi-tenant SaaS delivery sprint.',
-    alt: 'Codeze team celebrating sprint milestone with festive sweets in modern office',
+    alt: 'VYNTRA team celebrating sprint milestone with festive sweets in modern office',
   },
   {
     id: 'founders-studio',
@@ -38,7 +38,7 @@ export const galleryItems: GalleryItem[] = [
     image: foundersDuoImg,
     tag: 'STUDIO LIFE',
     caption: 'Daily standup and architecture brainstorm session in the startup tech bay.',
-    alt: 'Codeze engineers smiling in front of creative tech workspace',
+    alt: 'VYNTRA engineers smiling in front of creative tech workspace',
   },
   {
     id: 'impact-stat',
@@ -49,8 +49,8 @@ export const galleryItems: GalleryItem[] = [
     statNumber: '01',
     statUnit: 'Million',
     statLabel: 'Students & Devs Impacted',
-    tag: 'CODEZE REACH',
-    alt: '01 Million Students & Devs Impacted at Codeze',
+    tag: 'VYNTRA REACH',
+    alt: '01 Million Students & Devs Impacted at VYNTRA',
   },
   {
     id: 'mentorship-moment',
@@ -77,13 +77,13 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     id: 'community-cohort',
-    title: 'The Codeze Developer Family',
+    title: 'The VYNTRA Developer Family',
     subtitle: 'Builders, engineers, and creators united',
     category: 'community',
     type: 'image',
     image: communityGroupImg,
     tag: 'COMMUNITY & COHORT',
     caption: 'A united collective of builders pushing boundaries and shipping modern software products together.',
-    alt: 'Codeze engineering community cohort standing together smiling in office',
+    alt: 'VYNTRA engineering community cohort standing together smiling in office',
   },
 ]

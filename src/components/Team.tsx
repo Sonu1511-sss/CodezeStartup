@@ -40,7 +40,7 @@ export default function Team() {
     <section id="team" className="team-sec">
       <div className="wrap">
         <p className="lab">Meet Our Team</p>
-        <Split>The Developers Behind Codeze</Split>
+        <Split>The Developers Behind VYNTRA</Split>
         <p className="lead rv" style={{ marginTop: '1.25rem' }}>
           Our dedicated engineering team crafts modern web applications, scalable digital products, and intelligent AI solutions with precision and care.
         </p>

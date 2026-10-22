@@ -352,7 +352,7 @@ export default function Contact() {
                   </p>
                   <a
                     href={getWhatsAppUrl(
-                      'Hi CODEZA team, I would like to make a general inquiry and discuss a project booking.'
+                      'Hi VYNTRA team, I would like to make a general inquiry and discuss a project booking.'
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -372,11 +372,11 @@ export default function Contact() {
                 <div className="contact-card-body">
                   <h3 className="contact-card-title">Software Development</h3>
                   <p className="contact-card-desc">
-                    Web Apps • SaaS • MERN • UI/UX
+                    Web Apps • SaaS • Cloud • AI
                   </p>
                   <a
                     href={getWhatsAppUrl(
-                      'Hi CODEZA team, I am interested in Software Development services (Web Apps, SaaS, MERN, UI/UX).'
+                      'Hi VYNTRA team, I am interested in Software Development services (Web Apps, SaaS, Cloud & AI).'
                     )}
                     target="_blank"
                     rel="noopener noreferrer"

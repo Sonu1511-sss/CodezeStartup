@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '../lib/gsap'
-const LINKS: [string, string][] = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['work', 'Our Work'], ['team', 'Team'], ['gallery', 'Gallery'], ['contact', 'Contact']]
+const LINKS: [string, string][] = [
+  ['home', 'Home'],
+  ['about', 'About'],
+  ['services', 'Services'],
+  ['vision', 'Vision'],
+  ['work', 'Work'],
+  ['products', 'Products'],
+  ['team', 'Team'],
+  ['gallery', 'Gallery'],
+  ['contact', 'Contact'],
+]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -29,9 +39,12 @@ export default function Navbar() {
   return (
     <nav className={solid ? 's' : ''}>
       <div className="wrap nb">
-        <a className="logo" href="#home" aria-label="Codeze Startup home">
-          <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="none" stroke="#8B5CF6" strokeWidth="2" /><path d="M20 12.5a5.5 5.5 0 1 0 0 7" fill="none" stroke="#22D3EE" strokeWidth="2.4" strokeLinecap="round" /></svg>
-          Codeze Startup
+        <a className="logo" href="#home" aria-label="VYNTRA Technologies home">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="none" stroke="#8B5CF6" strokeWidth="2" />
+            <path d="M12 12l4 9 4-9" fill="none" stroke="#22D3EE" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          VYNTRA
         </a>
         <button className="burger" aria-expanded={open} aria-controls="lk" aria-label="Toggle menu" onClick={() => setOpen((o) => !o)}><span /><span /><span /></button>
         <div className={'links' + (open ? ' o' : '')} id="lk">

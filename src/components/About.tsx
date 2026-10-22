@@ -28,7 +28,7 @@ export default function About() {
     <section id="about" className="about-sec">
       <div className="wrap">
         <div className="about-bento-grid rv">
-          {/* 1. Left Section — About CODEZA */}
+          {/* 1. Left Section — About VYNTRA */}
           <div className="about-left-col">
             <div className="about-eyebrow-pill">
               <span className="about-pill-dot" aria-hidden="true" />
@@ -81,7 +81,7 @@ export default function About() {
                     onClick={handlePlayClick}
                     role="button"
                     tabIndex={0}
-                    aria-label="Play company introduction video: Meet CODEZA"
+                    aria-label="Play company introduction video: Meet VYNTRA"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault()
@@ -103,15 +103,16 @@ export default function About() {
                             strokeWidth="2.2"
                           />
                           <path
-                            d="M20 12.5a5.5 5.5 0 1 0 0 7"
+                            d="M12 12l4 9 4-9"
                             fill="none"
                             stroke="#06B6D4"
                             strokeWidth="2.6"
                             strokeLinecap="round"
+                            strokeLinejoin="round"
                           />
                         </svg>
                       </div>
-                      <span className="about-video-wordmark">CODEZA</span>
+                      <span className="about-video-wordmark">VYNTRA</span>
                     </div>
 
                     {/* Centered Play Button */}

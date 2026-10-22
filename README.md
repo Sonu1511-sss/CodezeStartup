@@ -1,6 +1,6 @@
-# Codeze Startup – Company Website
+# VYNTRA Technologies – Company Website
 
-React + TypeScript + Vite frontend, GSAP/ScrollTrigger animations, React Three Fiber hero, Express contact API.
+Build. Deploy. Scale. React + TypeScript + Vite frontend, GSAP/ScrollTrigger animations, React Three Fiber hero, Express contact API.
 
 ## Setup
 ```bash

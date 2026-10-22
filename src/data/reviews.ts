@@ -9,7 +9,7 @@ export const reviews: ClientReview[] = [
     initials: 'AS',
     rating: 5,
     review:
-      'CODEZA transformed our brand into an extraordinary digital experience. Online orders surged by 45% within the first month.',
+      'VYNTRA transformed our brand into an extraordinary digital experience. Online orders surged by 45% within the first month.',
     project: 'Restaurant Digital Platform',
     tag: 'Web Architecture',
   },

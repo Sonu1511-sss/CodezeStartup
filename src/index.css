@@ -73,7 +73,7 @@ html.lenis, html.lenis body {
 
 
 /* ===========================
-   CODEZA BENTO GRID ABOUT SECTION
+   VYNTRA BENTO GRID ABOUT SECTION
    2-Column Bento: Left About/Stats + Right Video Showcase
 =========================== */
 .about-sec {
@@ -508,6 +508,301 @@ html.lenis, html.lenis body {
 .cb p{color:var(--mu);margin:0 0 1rem;font-size:.95rem}
 .tg{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.8rem;color:var(--cy)}
 @media(max-width:860px){.card,.card:nth-child(n){grid-column:span 12}}
+
+/* ==========================================================================
+   VYNTRA TECHNOLOGY VISION SECTION
+   ========================================================================== */
+#vision {
+  position: relative;
+  overflow: hidden;
+}
+.vision-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.vision-card {
+  background: var(--bg2);
+  border: 1px solid var(--ln);
+  border-radius: 12px;
+  padding: 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.vision-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--pu), var(--cy), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.vision-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.5);
+}
+.vision-card:hover::before {
+  opacity: 1;
+}
+.vision-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font: 500 0.76rem var(--d);
+  color: var(--cy);
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 99px;
+  margin-bottom: 1.4rem;
+}
+.vision-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: var(--tx);
+}
+.vision-card p {
+  color: var(--mu);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+}
+.vision-list {
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ln);
+  padding-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.vision-list li {
+  font-size: 0.88rem;
+  color: #d4d4d8;
+  position: relative;
+  padding-left: 1.2rem;
+}
+.vision-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pu);
+  box-shadow: 0 0 8px var(--pu);
+}
+.vision-banner {
+  margin-top: 3.5rem;
+  padding: 2.2rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(34, 211, 238, 0.05));
+  border: 1px solid var(--ln);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.6rem;
+}
+.vision-banner-tagline {
+  font-family: var(--d);
+  font-size: clamp(1.4rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: linear-gradient(120deg, #fff 20%, var(--cy) 65%, var(--pu) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.vision-banner-tagline .dot {
+  color: var(--cy);
+  -webkit-text-fill-color: initial;
+  opacity: 0.7;
+}
+.vision-banner-sub {
+  color: var(--mu);
+  font-size: 0.95rem;
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .vision-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   VYNTRA FUTURE PRODUCTS SECTION
+   ========================================================================== */
+#products {
+  background: var(--bg2);
+}
+.future-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+.future-card {
+  background: var(--bg);
+  border: 1px solid var(--ln);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.future-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.5);
+}
+.product-preview {
+  background: #0d0e12;
+  border-bottom: 1px solid var(--ln);
+  padding: 1rem;
+  min-height: 165px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.preview-terminal {
+  background: #08080a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.terminal-header {
+  background: #111116;
+  padding: 0.45rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.term-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.term-dot.red { background: #ef4444; }
+.term-dot.yellow { background: #f59e0b; }
+.term-dot.green { background: #10b981; }
+.term-title {
+  margin-left: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--mu);
+}
+.terminal-body {
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+.term-line {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.term-line.success { color: #34d399; }
+.term-line.info { color: #38bdf8; }
+.term-line.active { color: #c084fc; }
+.future-card-body {
+  padding: 1.5rem 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.future-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+.product-cat {
+  font-size: 0.8rem;
+  color: var(--cy);
+  font-weight: 500;
+}
+.product-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+  letter-spacing: 0.02em;
+}
+.product-status-pill.in-dev {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.28);
+}
+.product-status-pill.planned {
+  background: rgba(139, 92, 246, 0.12);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.28);
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.status-dot.pulsing {
+  animation: statusPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+.future-card-body h3 {
+  font-size: 1.55rem;
+  margin-bottom: 0.6rem;
+  color: var(--tx);
+}
+.future-card-body p {
+  color: var(--mu);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 1.2rem;
+}
+.product-stage-note {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ln);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: #a1a1aa;
+}
+@media (max-width: 960px) {
+  .future-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* process */
 .tl{position:relative;margin-top:4rem;padding-left:2.5rem}
 .tl::before,.tl .pg{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--ln)}
@@ -529,7 +824,7 @@ html.lenis, html.lenis body {
 .wg p{margin:0;color:var(--mu);font-size:.95rem}
 @media(max-width:860px){.wg{grid-template-columns:1fr}}
 /* ===========================
-   CODEZA CLIENT REVIEWS SECTION
+   VYNTRA CLIENT REVIEWS SECTION
    Compact Single-Track GSAP Infinite Scroller
 =========================== */
 .reviews-sec {
@@ -724,7 +1019,7 @@ html.lenis, html.lenis body {
 }
 
 /* ===========================
-   CODEZA TEAM SECTION
+   VYNTRA TEAM SECTION
    Refined Compact Single-Line Skyline Wave + LinkedIn
 =========================== */
 .team-sec {
@@ -1044,7 +1339,7 @@ html.lenis, html.lenis body {
   }
 }
 /* ===========================
-   CODEZA CONTACT SECTION
+   VYNTRA CONTACT SECTION
 =========================== */
 .contact-sec {
   position: relative;
@@ -1736,7 +2031,7 @@ html.lenis, html.lenis body {
 .mo{display:none}
 
 /* ==========================================================================
-   CODEZE GALLERY / BENTO MOMENTS SECTION (kahi bada, kahi chota)
+   VYNTRA GALLERY / BENTO MOMENTS SECTION (kahi bada, kahi chota)
    ========================================================================== */
 .gallery-sec {
   position: relative;

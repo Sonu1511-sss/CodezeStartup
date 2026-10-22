@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from './lib/gsap'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import { About, Services, Work, Process, Why } from './components/sections'
+import { About, Services, Vision, Work, FutureProducts, Process, Why } from './components/sections'
 import Gallery from './components/Gallery'
 import Reviews from './components/Reviews'
 import Team from './components/Team'
@@ -129,7 +129,9 @@ export default function App() {
         <Hero />
         <About />
         <Services />
+        <Vision />
         <Work />
+        <FutureProducts />
         <Process />
         <Gallery />
         <Why />
