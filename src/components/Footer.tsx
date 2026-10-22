@@ -1,20 +1,280 @@
-import { company } from '../data/content'
+import { useRef } from 'react'
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from '../lib/gsap'
+import {
+  Instagram,
+  Linkedin,
+  Youtube,
+  Github,
+  Twitter,
+  ArrowUpRight,
+  Sparkles,
+} from 'lucide-react'
+
+
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const textContainerRef = useRef<HTMLDivElement>(null)
+  const glowRef = useRef<HTMLDivElement>(null)
+
+  // Interactive Cursor Spotlight Glow Effect (Sheryians style: jaha cursor jata hai waha color aata hai)
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!textContainerRef.current) return
+    const rect = textContainerRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    // Smooth GSAP interpolation for color position and reveal opacity
+    gsap.to(textContainerRef.current, {
+      '--x': `${x}px`,
+      '--y': `${y}px`,
+      '--opacity': 1,
+      duration: 0.2,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    })
+
+    if (glowRef.current) {
+      gsap.to(glowRef.current, {
+        x,
+        y,
+        opacity: 1,
+        duration: 0.35,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      })
+    }
+  }
+
+  const handlePointerLeave = () => {
+    if (textContainerRef.current) {
+      gsap.to(textContainerRef.current, {
+        '--opacity': 0,
+        duration: 0.45,
+        ease: 'power2.out',
+      })
+    }
+    if (glowRef.current) {
+      gsap.to(glowRef.current, {
+        opacity: 0,
+        duration: 0.45,
+        ease: 'power2.out',
+      })
+    }
+  }
+
+  useGSAP(() => {
+    if (prefersReducedMotion()) return
+
+    // 1. Huge centered outlined brand text with smooth parallax & scale scrub
+    if (trackRef.current && footerRef.current) {
+      gsap.fromTo(
+        trackRef.current,
+        { yPercent: 20, scale: 0.94, opacity: 0.7 },
+        {
+          yPercent: -8,
+          scale: 1.02,
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1.2,
+          },
+        }
+      )
+    }
+
+    // 2. Footer content staggered reveal
+    ScrollTrigger.batch('.footer-reveal', {
+      start: 'top 88%',
+      once: true,
+      onEnter: (elements) =>
+        gsap.from(elements, {
+          opacity: 0,
+          y: 40,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: 'power3.out',
+          clearProps: 'all',
+        }),
+    })
+  }, { scope: footerRef })
+
   return (
-    <footer><div className="wrap">
-      <div className="fg">
-        <div><a className="logo" href="#home">Codeze Startup</a><p style={{ color: 'var(--mu)', maxWidth: '34ch' }}>Custom software, AI solutions and SaaS products for businesses.</p></div>
-        <div><h3>Navigate</h3><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#work">Our Work</a></li><li><a href="#team">Team</a></li></ul></div>
-        <div><h3>Services</h3><ul><li><a href="#services">Software Development</a></li><li><a href="#services">AI &amp; Automation</a></li><li><a href="#services">SaaS Products</a></li></ul></div>
-        <div><h3>Contact</h3><ul>
-          <li><a href="#contact">Send an inquiry</a></li>
-          {company.email && <li><a href={'mailto:' + company.email}>{company.email}</a></li>}
-          {company.socials.map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a></li>)}
-          {company.privacyUrl && <li><a href={company.privacyUrl}>Privacy Policy</a></li>}
-          {company.termsUrl && <li><a href={company.termsUrl}>Terms and Conditions</a></li>}
-        </ul></div>
+    <footer ref={footerRef} className="sheryians-footer">
+      {/* 1. Huge Outlined Text with Sheryians Cursor Follow Color Reveal */}
+      <div
+        ref={textContainerRef}
+        className="footer-huge-outline-wrap"
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
+      >
+        {/* Ambient Radial Cursor Glow Aura */}
+        <div ref={glowRef} className="footer-cursor-glow" aria-hidden="true" />
+
+        <div ref={trackRef} className="footer-huge-outline-track" aria-hidden="true">
+          <div className="footer-text-spotlight-container">
+            {/* Base Outlined Text */}
+            <span className="footer-huge-outline-text">CODEZE</span>
+
+            {/* Dynamic Spotlight Fill: Colors light up wherever the cursor moves */}
+            <span className="footer-huge-spotlight-fill" aria-hidden="true">
+              CODEZE
+            </span>
+          </div>
+        </div>
       </div>
-      <div className="cp">© {new Date().getFullYear()} Codeze Startup. All rights reserved.</div>
-    </div></footer>
+
+      {/* 2. Main Footer Navigation Grid */}
+      <div className="wrap">
+        <div className="footer-main-grid">
+          {/* Column 1: Brand Info & Social Media Icons */}
+          <div className="footer-brand-col footer-reveal">
+            <a className="footer-logo" href="#home" aria-label="Codeze Startup home">
+              <svg viewBox="0 0 32 32" aria-hidden="true" className="footer-logo-svg">
+                <path d="M16 2 29 9.5v13L16 30 3 22.5v-13z" fill="none" stroke="#8B5CF6" strokeWidth="2.2" />
+                <path d="M20 12.5a5.5 5.5 0 1 0 0 7" fill="none" stroke="#22D3EE" strokeWidth="2.4" strokeLinecap="round" />
+              </svg>
+              <span>Codeze Startup</span>
+            </a>
+
+            <p className="footer-brand-desc">
+              Building custom software, AI-powered systems, and scalable SaaS platforms designed around modern business ambition.
+            </p>
+
+            {/* Social Media Icons (Like Sheryians Footer) */}
+            <div className="footer-social-row">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-icon-btn"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/shubham-uprade"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-icon-btn"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-icon-btn"
+                aria-label="GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href="https://youtube.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-icon-btn"
+                aria-label="YouTube"
+              >
+                <Youtube size={18} />
+              </a>
+              <a
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social-icon-btn"
+                aria-label="X (Twitter)"
+              >
+                <Twitter size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: ABOUT */}
+          <div className="footer-col footer-reveal">
+            <h3 className="footer-col-title">ABOUT</h3>
+            <ul className="footer-links-list">
+              <li><a href="#about" className="footer-link">About Us</a></li>
+              <li><a href="#services" className="footer-link">What We Do</a></li>
+              <li><a href="#work" className="footer-link">Selected Work</a></li>
+              <li><a href="#process" className="footer-link">How We Work</a></li>
+              <li><a href="#gallery" className="footer-link">Moments &amp; Gallery</a></li>
+              <li><a href="#team" className="footer-link">Our Developers</a></li>
+            </ul>
+          </div>
+
+          {/* Column 3: COMPANY & SAAS */}
+          <div className="footer-col footer-reveal">
+            <h3 className="footer-col-title">COMPANY</h3>
+            <ul className="footer-links-list">
+              <li>
+                <a href="https://unibillpro.devforge.in/" target="_blank" rel="noopener noreferrer" className="footer-link">
+                  <span>UniBill Pro</span>
+                  <ArrowUpRight size={13} className="footer-link-arrow" />
+                </a>
+              </li>
+              <li>
+                <a href="https://hangry-frontend-seven.vercel.app/" target="_blank" rel="noopener noreferrer" className="footer-link">
+                  <span>Hangry Platform</span>
+                  <ArrowUpRight size={13} className="footer-link-arrow" />
+                </a>
+              </li>
+              <li>
+                <a href="https://puruliatravelsfinal.netlify.app/" target="_blank" rel="noopener noreferrer" className="footer-link">
+                  <span>Purulia Travels</span>
+                  <ArrowUpRight size={13} className="footer-link-arrow" />
+                </a>
+              </li>
+              <li>
+                <a href="https://namatecafe.web.app/" target="_blank" rel="noopener noreferrer" className="footer-link">
+                  <span>Namaste Cafe</span>
+                  <ArrowUpRight size={13} className="footer-link-arrow" />
+                </a>
+              </li>
+              <li><a href="#reviews" className="footer-link">Client Reviews</a></li>
+              <li><a href="#contact" className="footer-link">Submit Requirements</a></li>
+            </ul>
+          </div>
+
+          {/* Column 4: CONTACT */}
+          <div className="footer-col footer-reveal">
+            <h3 className="footer-col-title">CONTACT</h3>
+            <div className="footer-contact-info">
+              <div className="footer-contact-item">
+                <span className="footer-contact-label">Direct Helpline:</span>
+                <a href="tel:+919131648013" className="footer-contact-value footer-link-highlight">
+                  +91 91316 48013
+                </a>
+              </div>
+              <div className="footer-contact-item">
+                <span className="footer-contact-label">Direct Email:</span>
+                <a href="mailto:codezastartup@gmail.com" className="footer-contact-value footer-link-highlight">
+                  codezastartup@gmail.com
+                </a>
+              </div>
+              <div className="footer-contact-item">
+                <span className="footer-contact-label">Location:</span>
+                <span className="footer-contact-value">India · Indore Madhay Pradesh</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3. Bottom Copyright & Credits Bar */}
+        <div className="footer-bottom-bar footer-reveal">
+          <p className="footer-copyright">
+            © {new Date().getFullYear()} Codeze Startup. All rights reserved.
+          </p>
+          <div className="footer-bottom-tag">
+            <Sparkles size={13} className="footer-tag-sparkle" />
+            <span>Built with High-Scale Engineering &amp; Design Precision</span>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }

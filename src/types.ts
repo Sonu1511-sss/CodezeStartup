@@ -23,3 +23,20 @@ export interface ClientReview {
   project: string
   tag: string
 }
+
+export interface GalleryItem {
+  id: string
+  title: string
+  subtitle?: string
+  category: 'story' | 'celebration' | 'mentorship' | 'stat' | 'community'
+  type: 'image' | 'video' | 'stat'
+  image?: string
+  videoUrl?: string
+  tag?: string
+  captionBadge?: string
+  caption?: string
+  statNumber?: string
+  statUnit?: string
+  statLabel?: string
+  alt: string
+}

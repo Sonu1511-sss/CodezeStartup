@@ -6,24 +6,6 @@ import hangryImg from '../assets/Hangry.png'
 
 export const projects: Showcase[] = [
   {
-    name: 'Namaste Cafe',
-    category: 'Restaurant Website',
-    description:
-      'Premium restaurant website with modern UI, smooth animations, responsive design, and a seamless food ordering experience.',
-    tech: ['React', 'TypeScript', 'Tailwind CSS'],
-    placeholder: false,
-    image: namasteImg,
-  },
-  {
-    name: 'UniBill Pro',
-    category: 'Billing SaaS',
-    description:
-      'Smart billing and invoice management platform designed to simplify billing workflows for modern businesses and startups.',
-    tech: ['React', 'Node.js', 'Express.js', 'MongoDB'],
-    placeholder: false,
-    image: uniBillImg,
-  },
-  {
     name: 'Purulia Travels',
     category: 'Travel Platform',
     description:
@@ -31,6 +13,7 @@ export const projects: Showcase[] = [
     tech: ['React', 'JavaScript', 'CSS'],
     placeholder: false,
     image: puruliaImg,
+    url: 'https://puruliatravelsfinal.netlify.app/',
   },
   {
     name: 'Hangry',
@@ -40,5 +23,26 @@ export const projects: Showcase[] = [
     tech: ['React', 'JavaScript', 'CSS'],
     placeholder: false,
     image: hangryImg,
+    url: 'https://hangry-frontend-seven.vercel.app/',
+  },
+  {
+    name: 'UniBill Pro',
+    category: 'Billing SaaS',
+    description:
+      'Smart billing and invoice management platform designed to simplify billing workflows for modern businesses and startups.',
+    tech: ['React', 'Node.js', 'Express.js', 'MongoDB'],
+    placeholder: false,
+    image: uniBillImg,
+    url: 'https://unibillpro.devforge.in/',
+  },
+  {
+    name: 'Namaste Cafe',
+    category: 'Restaurant Website',
+    description:
+      'Premium restaurant website with modern UI, smooth animations, responsive design, and a seamless food ordering experience.',
+    tech: ['React', 'TypeScript', 'Tailwind CSS'],
+    placeholder: false,
+    image: namasteImg,
+    url: 'https://namatecafe.web.app/',
   },
 ]

@@ -1,0 +1,353 @@
+import { useState, useEffect, useCallback } from 'react'
+import { galleryItems } from '../data/gallery'
+import type { GalleryItem } from '../types'
+import { ArrowUpRight, Play, X, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
+
+function Split({ children }: { children: string }) {
+  return (
+    <h2 className="split">
+      {children.split(' ').map((w, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            overflow: 'hidden',
+            verticalAlign: 'top',
+            marginRight: '.25em',
+          }}
+        >
+          <span className="w" style={{ display: 'inline-block' }}>
+            {w}
+          </span>
+        </span>
+      ))}
+    </h2>
+  )
+}
+
+export default function Gallery() {
+  const [activeTab, setActiveTab] = useState<'all' | 'story' | 'celebration' | 'community'>('all')
+  const [activeItem, setActiveItem] = useState<GalleryItem | null>(null)
+  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null)
+
+  const filteredItems = activeTab === 'all'
+    ? galleryItems
+    : galleryItems.filter((item) => item.category === activeTab || item.type === 'stat')
+
+  const openLightbox = (item: GalleryItem) => {
+    setActiveItem(item)
+    if (item.type === 'video') {
+      setPlayingVideoId(item.id)
+    } else {
+      setPlayingVideoId(null)
+    }
+  }
+
+  const closeLightbox = () => {
+    setActiveItem(null)
+    setPlayingVideoId(null)
+  }
+
+  const navigateLightbox = useCallback((direction: 'next' | 'prev') => {
+    if (!activeItem) return
+    const currentIndex = galleryItems.findIndex((i) => i.id === activeItem.id)
+    if (currentIndex === -1) return
+
+    let nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1
+    if (nextIndex >= galleryItems.length) nextIndex = 0
+    if (nextIndex < 0) nextIndex = galleryItems.length - 1
+
+    const nextItem = galleryItems[nextIndex]
+    setActiveItem(nextItem)
+    if (nextItem.type === 'video') {
+      setPlayingVideoId(nextItem.id)
+    } else {
+      setPlayingVideoId(null)
+    }
+  }, [activeItem])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!activeItem) return
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowRight') navigateLightbox('next')
+      if (e.key === 'ArrowLeft') navigateLightbox('prev')
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activeItem, navigateLightbox])
+
+  return (
+    <section id="gallery" className="gallery-sec">
+      <div className="wrap">
+        {/* Header Section */}
+        <div className="gallery-header rv">
+          <div className="gallery-eyebrow">
+            <Sparkles size={14} className="gallery-sparkle" />
+            <span>MOMENTS & MILESTONES</span>
+          </div>
+          <Split>Life at Codeze — Stories, Wins & Celebrations</Split>
+          <p className="lead" style={{ marginTop: '0.85rem' }}>
+            From late-night code sprints and student career breakthroughs to sweet milestone celebrations. Here is a glimpse of our culture and community.
+          </p>
+
+          {/* Filter Categories */}
+          <div className="gallery-filter-tabs">
+            <button
+              type="button"
+              className={`gallery-filter-btn ${activeTab === 'all' ? 'active' : ''}`}
+              onClick={() => setActiveTab('all')}
+            >
+              All Moments
+            </button>
+            <button
+              type="button"
+              className={`gallery-filter-btn ${activeTab === 'story' ? 'active' : ''}`}
+              onClick={() => setActiveTab('story')}
+            >
+              Stories & Videos
+            </button>
+            <button
+              type="button"
+              className={`gallery-filter-btn ${activeTab === 'celebration' ? 'active' : ''}`}
+              onClick={() => setActiveTab('celebration')}
+            >
+              Celebrations
+            </button>
+            <button
+              type="button"
+              className={`gallery-filter-btn ${activeTab === 'community' ? 'active' : ''}`}
+              onClick={() => setActiveTab('community')}
+            >
+              Community
+            </button>
+          </div>
+        </div>
+
+        {/* Master Asymmetric Bento Grid (kahi bada, kahi chota) */}
+        <div className={`gallery-bento-grid rv ${activeTab !== 'all' ? 'gallery-filtered-mode' : ''}`}>
+          {filteredItems.map((item) => {
+            // Stat Card
+            if (item.type === 'stat') {
+              return (
+                <div
+                  key={item.id}
+                  className={`gallery-card gallery-stat-card gallery-item-${item.id}`}
+                  onClick={() => openLightbox(item)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={item.alt}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      openLightbox(item)
+                    }
+                  }}
+                >
+                  <div className="stat-card-grid-pattern" aria-hidden="true" />
+                  <div className="stat-card-glow" aria-hidden="true" />
+                  <div className="stat-card-content">
+                    <span className="stat-card-badge">{item.tag || 'CODEZE IMPACT'}</span>
+                    <div className="stat-card-main-number">
+                      <span className="stat-huge-number">{item.statNumber}</span>
+                      <span className="stat-huge-unit">{item.statUnit}</span>
+                    </div>
+                    <p className="stat-card-label">{item.statLabel}</p>
+                  </div>
+                  <div className="gallery-corner-arrow" aria-label="View metric details">
+                    <ArrowUpRight size={18} />
+                  </div>
+                </div>
+              )
+            }
+
+            // Video Cards (Card 1 or Card 6)
+            if (item.type === 'video') {
+              return (
+                <div
+                  key={item.id}
+                  className={`gallery-card gallery-video-card gallery-item-${item.id}`}
+                  onClick={() => openLightbox(item)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Play video: ${item.title}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      openLightbox(item)
+                    }
+                  }}
+                >
+                  <div className="gallery-img-container">
+                    <img src={item.image} alt={item.alt} loading="lazy" className="gallery-img" />
+                    <div className="gallery-gradient-overlay" />
+                  </div>
+
+                  {/* Top Placement Badge like reference */}
+                  {item.tag && (
+                    <div className="gallery-badge-top">
+                      <span className="gallery-badge-pill">{item.tag}</span>
+                    </div>
+                  )}
+
+                  {/* Bottom / Subtitle Badge like "Maine College" */}
+                  {item.captionBadge && (
+                    <div className="gallery-caption-badge-bottom">
+                      <span className="caption-badge-pill">{item.captionBadge}</span>
+                    </div>
+                  )}
+
+                  {/* Frosted Circular Play Button */}
+                  <div className="gallery-play-btn-wrapper" aria-hidden="true">
+                    <div className="gallery-play-btn">
+                      <Play size={20} className="gallery-play-icon" fill="white" />
+                    </div>
+                  </div>
+
+                  {/* Card Title & Meta overlay */}
+                  <div className="gallery-info-bottom">
+                    <h3 className="gallery-card-title">{item.title}</h3>
+                    {item.subtitle && <p className="gallery-card-subtitle">{item.subtitle}</p>}
+                  </div>
+
+                  {/* Top Right Arrow */}
+                  <div className="gallery-corner-arrow" aria-hidden="true">
+                    <ArrowUpRight size={18} />
+                  </div>
+                </div>
+              )
+            }
+
+            // Image Cards (Card 2, Card 3, Card 5, Card 7)
+            return (
+              <div
+                key={item.id}
+                className={`gallery-card gallery-image-card gallery-item-${item.id}`}
+                onClick={() => openLightbox(item)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View photo: ${item.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openLightbox(item)
+                  }
+                }}
+              >
+                <div className="gallery-img-container">
+                  <img src={item.image} alt={item.alt} loading="lazy" className="gallery-img" />
+                  <div className="gallery-gradient-overlay" />
+                </div>
+
+                {/* Top Right Circle Arrow Button matching screenshot */}
+                <div className="gallery-corner-arrow" aria-label="Expand image">
+                  <ArrowUpRight size={18} />
+                </div>
+
+                {/* Bottom Overlay Title & Tag */}
+                <div className="gallery-info-bottom">
+                  {item.tag && <span className="gallery-mini-tag">{item.tag}</span>}
+                  <h3 className="gallery-card-title">{item.title}</h3>
+                  {item.subtitle && <p className="gallery-card-subtitle">{item.subtitle}</p>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Interactive Lightbox Modal */}
+      {activeItem && (
+        <div className="gallery-modal-backdrop" onClick={closeLightbox}>
+          <div className="gallery-modal-dialog" onClick={(e) => e.stopPropagation()}>
+            {/* Close Button */}
+            <button
+              type="button"
+              className="gallery-modal-close"
+              onClick={closeLightbox}
+              aria-label="Close preview"
+            >
+              <X size={22} />
+            </button>
+
+            {/* Navigation Arrows */}
+            <button
+              type="button"
+              className="gallery-modal-nav gallery-nav-prev"
+              onClick={() => navigateLightbox('prev')}
+              aria-label="Previous item"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              type="button"
+              className="gallery-modal-nav gallery-nav-next"
+              onClick={() => navigateLightbox('next')}
+              aria-label="Next item"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Modal Body */}
+            <div className="gallery-modal-content">
+              <div className="gallery-modal-visual">
+                {activeItem.type === 'stat' ? (
+                  <div className="gallery-modal-stat-card">
+                    <span className="stat-card-badge">{activeItem.tag}</span>
+                    <div className="stat-card-main-number">
+                      <span className="stat-huge-number">{activeItem.statNumber}</span>
+                      <span className="stat-huge-unit">{activeItem.statUnit}</span>
+                    </div>
+                    <p className="stat-card-label" style={{ fontSize: '1.4rem' }}>{activeItem.statLabel}</p>
+                    <p style={{ marginTop: '1.5rem', color: 'rgba(255,255,255,0.7)', maxWidth: '42ch', textAlign: 'center' }}>
+                      Over one million developers, aspiring software engineers, and founders have learned, built, or shipped digital products with our open knowledge, workshops, and ecosystem.
+                    </p>
+                  </div>
+                ) : activeItem.type === 'video' ? (
+                  <div className="gallery-modal-video-box">
+                    <img
+                      src={activeItem.image}
+                      alt={activeItem.alt}
+                      className="gallery-modal-img"
+                    />
+                    <div className="gallery-modal-video-overlay">
+                      <div className="gallery-modal-play-pulse">
+                        <Play size={32} fill="white" />
+                      </div>
+                      <p className="gallery-modal-video-caption">
+                        {activeItem.captionBadge || activeItem.tag}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={activeItem.image}
+                    alt={activeItem.alt}
+                    className="gallery-modal-img"
+                  />
+                )}
+              </div>
+
+              {/* Modal Description Footer */}
+              <div className="gallery-modal-details">
+                <div className="gallery-modal-meta">
+                  {activeItem.tag && <span className="gallery-modal-tag">{activeItem.tag}</span>}
+                  <span className="gallery-modal-counter">
+                    {galleryItems.findIndex((i) => i.id === activeItem.id) + 1} / {galleryItems.length}
+                  </span>
+                </div>
+                <h3 className="gallery-modal-title">{activeItem.title}</h3>
+                {activeItem.subtitle && (
+                  <p className="gallery-modal-subtitle">{activeItem.subtitle}</p>
+                )}
+                {activeItem.caption && (
+                  <p className="gallery-modal-desc">{activeItem.caption}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  )
+}

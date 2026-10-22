@@ -34,7 +34,22 @@ function Card({ item, cta }: { item: Showcase; cta: string }) {
   return (
     <article className="card rv">
       <div className="pv">
-        {item.image ? (
+        {item.url ? (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={-1}
+            aria-label={`Open ${item.name} live demo`}
+            style={{ display: 'block', width: '100%', height: '100%' }}
+          >
+            {item.image ? (
+              <img src={item.image} alt={item.name} loading="lazy" />
+            ) : (
+              <div className="mock"><b /><b /><b /></div>
+            )}
+          </a>
+        ) : item.image ? (
           <img src={item.image} alt={item.name} loading="lazy" />
         ) : (
           <div className="mock"><b /><b /><b /></div>
@@ -45,7 +60,13 @@ function Card({ item, cta }: { item: Showcase; cta: string }) {
         <h3>{item.name}</h3>
         <p>{item.category}. {item.description}</p>
         <div className="tg">{item.tech.map((t) => <span key={t}>{t}</span>)}</div>
-        {item.url && <p style={{ marginTop: '1rem' }}><a href={item.url} target="_blank" rel="noopener noreferrer">{cta}</a></p>}
+        {item.url && (
+          <p style={{ marginTop: '1rem' }}>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              {cta}
+            </a>
+          </p>
+        )}
       </div>
     </article>
   )

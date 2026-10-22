@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from '../lib/gsap'
-const LINKS: [string, string][] = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['work', 'Our Work'], ['team', 'Team'], ['contact', 'Contact']]
+const LINKS: [string, string][] = [['home', 'Home'], ['about', 'About'], ['services', 'Services'], ['work', 'Our Work'], ['team', 'Team'], ['gallery', 'Gallery'], ['contact', 'Contact']]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
